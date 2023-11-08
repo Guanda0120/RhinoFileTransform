@@ -1,4 +1,4 @@
-﻿
+﻿using Rhino.FileIO;
 using RhinoFileTransform.BasicGeometry;
 
 class Program 
@@ -13,5 +13,6 @@ class Program
         string filePath = "C:\\Users\\12748\\Desktop\\1.json";
         File.WriteAllText(filePath, jsonString);
         Console.WriteLine("Finish Json");
+        
     }
 }

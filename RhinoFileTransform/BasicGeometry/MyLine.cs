@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Rhino;
+using Rhino.Geometry;
 
 namespace RhinoFileTransform.BasicGeometry
 {
+    [Serializable]
     public class MyLine: MyGeometryBase
     {
         // Start point of line segment.
@@ -26,12 +29,7 @@ namespace RhinoFileTransform.BasicGeometry
 
         public override string ToJson()
         {
-            //Write Here
-            Dictionary<string, object> jsonObject = new Dictionary<string, object> 
-            {
-                { "From", this.From}, { "To", this.To}, {"LayerIndex", this.LayerIndex}
-            };
-            return JsonSerializer.Serialize(jsonObject);
+            return JsonSerializer.Serialize<MyLine>(this);
         }
     }
 }

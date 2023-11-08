@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhino.Geometry;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -6,8 +7,10 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+
 namespace RhinoFileTransform.BasicGeometry
 {
+    [Serializable]
     public class MyPoint3d: MyGeometryBase
     {
         // X Coordinate of the Point
@@ -17,6 +20,7 @@ namespace RhinoFileTransform.BasicGeometry
         // Z Coordinate of the Point
         public double Z { get; set; }
 
+
         public MyPoint3d(double x, double y, double z, int layerIndex)
             :base(layerIndex) 
         {
@@ -25,12 +29,12 @@ namespace RhinoFileTransform.BasicGeometry
 
         public override string ToJson()
         {
-            Dictionary<string, object> jsonObject = new Dictionary<string, object>
-            {
-                {"X", this.X}, { "Y", this.Y}, { "Z", this.Z}, {"LayerIndex", this.LayerIndex }
-            };
+            return JsonSerializer.Serialize<MyPoint3d>(this);
+        }
 
-            return JsonSerializer.Serialize(jsonObject);
+        public Point3d ToRhino() 
+        {
+            return new Point3d(this.X, this.Y, this.Z);
         }
     }
 }
