@@ -5,14 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RhinoFileTransform.BasicGeometry
 {
+    [Serializable]
     public abstract class MyGeometryBase
     {
         // The Layer Index of The Geometry
         public int LayerIndex { get; private set; }
+        // Object Type
+        public string MyObjectType { get; } = "MyGeometryBase";
+
 
         /// <summary>
         /// Abstract Class for Every Geometry

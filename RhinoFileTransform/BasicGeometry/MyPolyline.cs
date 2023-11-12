@@ -1,21 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RhinoFileTransform.BasicGeometry
 {
     [Serializable]
     public class MyPolyline: MyGeometryBase
     {
-        public List<MyPoint3d> ControlPoint { get; set; }
+        // The Object Type
+        public new string MyObjectType { get; } = "MyPolyline";
+        // The Control Point List
+        public List<MyPoint3d> ControlPoints { get; set; }
+        // Simplyfiy is 
+        [JsonIgnore]
+        public readonly bool IsClosed;
 
-        public MyPolyline(List<MyPoint3d> controlPoint, int layerIndex)
+        public MyPolyline(List<MyPoint3d> controlPoints, int layerIndex)
             :base(layerIndex) 
         {
-            this.ControlPoint = controlPoint;
+            this.ControlPoints = controlPoints;
+            // Check if the polyline is closed
+            if (ControlPoints[0] == ControlPoints[ControlPoints.Count - 1])
+            {
+                this.IsClosed = true;
+            }
+            else
+            {
+                this.IsClosed = false;
+            }
         }
 
         public override string ToJson()
