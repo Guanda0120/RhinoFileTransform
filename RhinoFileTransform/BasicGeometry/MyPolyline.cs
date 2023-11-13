@@ -9,17 +9,17 @@ namespace RhinoFileTransform.BasicGeometry
         // The Object Type
         public new string MyObjectType { get; } = "MyPolyline";
         // The Control Point List
-        public List<MyPoint3d> ControlPoints { get; set; }
-        // Simplyfiy is 
+        public MyPoint3d[] ControlPoints { get; set; }
+        // The Curve is Closed or not.
         [JsonIgnore]
         public readonly bool IsClosed;
 
-        public MyPolyline(List<MyPoint3d> controlPoints, int layerIndex)
+        public MyPolyline(IEnumerable<MyPoint3d> controlPoints, int layerIndex)
             :base(layerIndex) 
         {
-            this.ControlPoints = controlPoints;
+            this.ControlPoints = controlPoints.ToArray();
             // Check if the polyline is closed
-            if (ControlPoints[0] == ControlPoints[ControlPoints.Count - 1])
+            if (ControlPoints[0] == ControlPoints[ControlPoints.Length - 1])
             {
                 this.IsClosed = true;
             }

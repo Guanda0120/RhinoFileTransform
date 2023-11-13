@@ -16,20 +16,26 @@ namespace RhinoFileTransform.BasicGeometry
         // The Object Type
         public new string MyObjectType { get; } = "NurbCurve";
         // The Control Point List
-        public List<MyPoint3d> ControlPoints { get; set; }
+        public MyPoint3d[] ControlPoints { get; set; }
         // The Curve Degree
         public int Degree { get; set; }
 
         [JsonIgnore]
         public readonly bool IsClosed;
 
-        public MyNurbsCurve(List<MyPoint3d> controlPoints, int degree, int layerIndex)
+        /// <summary>
+        /// A Constructor of NurbsCurve
+        /// </summary>
+        /// <param name="controlPoints"> A list of MyPoint3d </param>
+        /// <param name="degree"> The Degree of the nurbs curve </param>
+        /// <param name="layerIndex"> The  </param>
+        public MyNurbsCurve(IEnumerable<MyPoint3d> controlPoints, int degree, int layerIndex)
             :base(layerIndex)
         {
-            this.ControlPoints = controlPoints;
+            this.ControlPoints = controlPoints.ToArray();
             this.Degree = degree;
             // Check if the polyline is closed
-            if (ControlPoints[0] == ControlPoints[ControlPoints.Count - 1])
+            if (ControlPoints[0] == ControlPoints[ControlPoints.Length - 1])
             {
                 this.IsClosed = true;
             }
