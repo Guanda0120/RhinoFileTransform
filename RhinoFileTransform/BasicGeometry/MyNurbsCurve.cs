@@ -50,7 +50,7 @@ namespace RhinoFileTransform.BasicGeometry
         /// </summary>
         /// <param name="t"> t blongs to [0,1] domain </param>
         /// <returns> MyPoint3d that at t </returns>
-        public MyPoint3d PointAt(double t) 
+        public void PointAt(double t) 
         {
             
         }

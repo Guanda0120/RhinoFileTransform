@@ -1,17 +1,24 @@
 ﻿using Rhino.FileIO;
+using Rhino.Geometry;
 using RhinoFileTransform.BasicGeometry;
+using RhinoFileTransform.MathUtility;
 
 class Program 
 {
     public static void Main() 
     {
-        MyPoint3d fromPoint = new MyPoint3d(0, 0, 0, 1);
-        MyPoint3d toPoint = new MyPoint3d(1, 2, 3, 1);
-        MyLine myLine = new MyLine(toPoint, fromPoint, 4);
-        string jsonString = myLine.ToJson();
-        Console.WriteLine(jsonString);
-        string filePath = "C:\\Users\\12748\\Desktop\\1.json";
-        File.WriteAllText(filePath, jsonString);
-        Console.WriteLine("Finish Json");
+        Console.WriteLine(FactorialUtl.Factorial(5));
+
+        MyPoint3d[] myPoint3Ds = new MyPoint3d[]
+        {
+            new MyPoint3d(0, 0, 0, 1),
+            new MyPoint3d(0, 1, 0, 1),
+            new MyPoint3d(1, 1, 0, 1),
+            new MyPoint3d(1, 0, 0, 1),
+        };
+
+        MyBezierCurve myBezierCurve = new MyBezierCurve(myPoint3Ds, 0);
+        MyPoint3d tPoint3D = myBezierCurve.PointAt(0.5);
+        Console.WriteLine(tPoint3D.ToJson());
     }
 }
